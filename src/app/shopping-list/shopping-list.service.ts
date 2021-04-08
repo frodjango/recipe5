@@ -26,23 +26,23 @@ export class ShoppingListService {
     //     this.ingredientChanged.next(this.ingredients.slice());
     // }
 
-    addIngredientsToShoppingList(ingredients: Ingredient[]) {
-        // version 1
-        // for (var ingredient of ingredients) {
-        //     this.addIngredient(ingredient);
-        // }
-        // version 2 - plus fancy !
-        this.ingredients.push(...ingredients);
-        this.ingredientChanged.next(this.ingredients.slice());
-    }
+    // addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    //     // version 1
+    //     // for (var ingredient of ingredients) {
+    //     //     this.addIngredient(ingredient);
+    //     // }
+    //     // version 2 - plus fancy !
+    //     this.ingredients.push(...ingredients);
+    //     this.ingredientChanged.next(this.ingredients.slice());
+    // }
 
-    updateIngredient(index: number, newIngredient: Ingredient) {
-        this.ingredients[index] = newIngredient;
-        this.ingredientChanged.next(this.ingredients.slice());
-    }
+    // updateIngredient(index: number, newIngredient: Ingredient) {
+    //     this.ingredients[index] = newIngredient;
+    //     this.ingredientChanged.next(this.ingredients.slice());
+    // }
 
-    removeIngredient(index: number) {
-        this.ingredients.splice(index, 1);
-        this.ingredientChanged.next(this.ingredients.slice());
-    }
+    // removeIngredient(index: number) {
+    //     this.ingredients.splice(index, 1);
+    //     this.ingredientChanged.next(this.ingredients.slice());
+    // }
 }
