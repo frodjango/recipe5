@@ -21,11 +21,11 @@ export class ShoppingListService {
         return this.ingredients[index];
     }
 
-    addIngredient(ingredient: Ingredient) {
-        this.ingredients.push(ingredient);
-        this.ingredientChanged.next(this.ingredients.slice());
-    }
-    
+    // addIngredient(ingredient: Ingredient) {
+    //     this.ingredients.push(ingredient);
+    //     this.ingredientChanged.next(this.ingredients.slice());
+    // }
+
     addIngredientsToShoppingList(ingredients: Ingredient[]) {
         // version 1
         // for (var ingredient of ingredients) {
