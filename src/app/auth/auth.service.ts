@@ -5,6 +5,10 @@ import { throwError, BehaviorSubject } from 'rxjs';
 import { User } from './user.model';
 import { Router } from "@angular/router";
 import { environment } from '../../environments/environment';
+import { Store } from "@ngrx/store";
+
+import * as fromApp from '../store/app.reducer';
+import * as AuthActions from './store/auth.actions';
 
 // From firebase API definition
 
@@ -27,10 +31,13 @@ export class AuthService {
 
   // We want to make the token available to another service (data-storage) -> BehaviorSubject
 
-  user = new BehaviorSubject<User>(null); // will propagate the user status across the app (e.g. header component)
+  // user = new BehaviorSubject<User>(null); // will propagate the user status across the app (e.g. header component)
   private tokenExpirationTimer: any = null;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private store: Store<fromApp.AppState>) {}
 
   signUp(email: string, password: string) {
     return this.http
@@ -75,7 +82,13 @@ export class AuthService {
       const expirationInMsec = new Date().getTime() + expiresInMsec;
       const expirationDate = new Date(expirationInMsec);
       const user = new User(email, id, token, expirationDate);
-      this.user.next(user);
+      // this.user.next(user);
+      this.store.dispatch(new AuthActions.Login({
+        email: email,
+        userId: id,
+        token: token,
+        expirationDate: expirationDate
+        }))
       this.autoLogout(expiresInMsec);
       localStorage.setItem('userData', JSON.stringify(user));
     }
@@ -124,6 +137,7 @@ export class AuthService {
       if (!userData) {
         return;
       }
+
       const loadedUser = new User(
         userData.email,
         userData.id,
@@ -132,7 +146,15 @@ export class AuthService {
       )
 
       if (loadedUser.token) {
-        this.user.next(loadedUser);
+        // this.user.next(loadedUser);
+
+        this.store.dispatch(new AuthActions.Login({
+          email: loadedUser.email,
+          userId: loadedUser.id,
+          token: loadedUser.token,
+          expirationDate: new Date(userData._tokenExpirationDate)
+          })
+        )
         const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime();
         this.autoLogout(expirationDuration);
       }
@@ -146,7 +168,8 @@ export class AuthService {
     }
 
     logout() {
-      this.user.next(null);
+      // this.user.next(null);
+      this.store.dispatch(new AuthActions.Logout());
       this.router.navigate(['/auth']);
       // localStorage.clear();
       localStorage.removeItem('userData');

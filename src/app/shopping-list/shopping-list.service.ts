@@ -4,22 +4,22 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class ShoppingListService {
-    public ingredientChanged = new Subject<Ingredient[]>();
-    public startedEditing = new Subject<number>();
+    // public ingredientChanged = new Subject<Ingredient[]>();
+    // public startedEditing = new Subject<number>();
 
-    private ingredients: Ingredient[] = [
-        new Ingredient('Apples', 5),
-        new Ingredient('Tomatoes', 10)
-      ];
+    // private ingredients: Ingredient[] = [
+    //     new Ingredient('Apples', 5),
+    //     new Ingredient('Tomatoes', 10)
+    //   ];
 
     // Getter that returns a COPY !!!!
-    getIngredients() {
-        return this.ingredients.slice();
-    }
+    // getIngredients() {
+    //     return this.ingredients.slice();
+    // }
 
-    getIngredient(index: number) {
-        return this.ingredients[index];
-    }
+    // getIngredient(index: number) {
+    //     return this.ingredients[index];
+    // }
 
     // addIngredient(ingredient: Ingredient) {
     //     this.ingredients.push(ingredient);
