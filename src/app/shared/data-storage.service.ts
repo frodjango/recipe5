@@ -30,6 +30,8 @@ export class DataStorageService {
     });
   }
 
+  // Challenge here - return two observables
+
   fetchRecipes() {
     return this.http.get<Recipe[]>(this.firebase + 'recipes.json')
       .pipe(

@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
       // this.authService.user; // already an observable
       return this.store.select('auth').pipe(
         take(1),
-        map(authState => authState.user),
+        map(authState => authState.user), // same trick as in auth-interceptor.service.ts
         map( user => {
           const isAuth = !!user;
           if (isAuth) {

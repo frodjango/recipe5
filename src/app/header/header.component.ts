@@ -24,7 +24,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.userSub = this.store.select('auth')
-      .pipe(map(authState => authState.user))
+      .pipe(
+        map( authState => authState.user ) // same trick as auth-interceptors.service.ts
+      )
       .subscribe( user => {
         // this.isAuthenticated = user ? true : false;  // standard way
         this.isAuthenticated = !!user;                  // cool new way
