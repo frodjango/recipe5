@@ -12,48 +12,48 @@ import * as fromApp from '../store/app.reducer';
 export class RecipeService {
   public recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [];
+  private recipes: Recipe[] = [];
 
-    constructor(
-      private store: Store<fromApp.AppState>
-    ) {}
+  constructor(
+    private store: Store<fromApp.AppState>
+  ) {}
 
-    // Getter that returns a COPY !!!!
-    getRecipes() {
-        return this.recipes.slice();
-    }
+  // Getter that returns a COPY !!!!
+  getRecipes() {
+      return this.recipes.slice();
+  }
 
-    getRecipe(index: number) {
-      return this.recipes[index];
-    }
+  getRecipe(index: number) {
+    return this.recipes[index];
+  }
 
-    addIngredientsToShoppingList(ingredients: Ingredient[]) {
-      this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients));
-    }
+  addIngredientsToShoppingList(ingredients: Ingredient[]) {
+    this.store.dispatch(new ShoppingListActions.AddIngredients(ingredients));
+  }
 
-    addRecipe(recipe: Recipe) {
-      this.recipes.push(recipe);
-      this.recipesChanged.next(this.recipes.slice());
-      console.log("From RecipeService number of recipe: " + this.recipes.length);
-    }
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(recipe);
+    this.recipesChanged.next(this.recipes.slice());
+    console.log("From RecipeService number of recipe: " + this.recipes.length);
+  }
 
-    updateRecipe(index: number, newRecipe: Recipe) {
-      this.recipes[index] = newRecipe;
-      this.recipesChanged.next(this.recipes.slice());
-    }
+  updateRecipe(index: number, newRecipe: Recipe) {
+    this.recipes[index] = newRecipe;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
-    deleteRecipe(index: number) {
-      this.recipes.splice(index, 1);
-      this.recipesChanged.next(this.recipes.slice());
-    }
+  deleteRecipe(index: number) {
+    this.recipes.splice(index, 1);
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
-    getLastIndex() {
-      return this.recipes.length - 1;
-    }
+  getLastIndex() {
+    return this.recipes.length - 1;
+  }
 
-    setRecipes(recipes: Recipe[]) {
-      this.recipes = recipes;
-      this.recipesChanged.next(this.recipes.slice());
-    }
+  setRecipes(recipes: Recipe[]) {
+    this.recipes = recipes;
+    this.recipesChanged.next(this.recipes.slice());
+  }
 
 }
